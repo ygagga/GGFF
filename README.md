@@ -13,55 +13,52 @@ if Library.SetTransparency then Library:SetTransparency(0.1) end
 
 -- Cria a janela
 local Window = Library:MakeWindow({
-Title = "REDz HUB",
-SubTitle = "by: redz9999",
+Title = "Boombox",
+SubTitle = "by: Cleitin verso",
 LoadText = "Carregando...",
-Flags = "redzHub_Example"
+Flags = "boombox"
 })
 
--- Cria a tab "Fling"
-local FlingTab = Window:MakeTab({
-Title = "Fling",
-Flags = "FlingTab"
+-- Cria a tab "Música"
+local MusicaTab = Window:MakeTab({
+Title = "Música",
+Flags = "musica"
 })
 
--- Cria o campo de texto para o nome da pessoa que irá dar fling
-local NomeFling = FlingTab:MakeTextBox({
-Placeholder = "Nome da pessoa que irá dar fling",
-Flags = "NomeFling"
+-- Cria o botão para tocar a música
+local TocarMusica = MusicaTab:MakeButton({
+Text = "Tocar Música",
+Flags = "tocar_musica",
+Style = "Rounded",
+Border = true,
+BorderSize = 10,
+BorderColor = Color3.new(0, 1, 0)
 })
 
--- Cria o botão para ligar o fling
-local LigarFling = FlingTab:MakeButton({
-Text = "Ligar Fling",
-Flags = "LigarFling"
-})
-
--- Cria o botão para desligar o fling
-local DesligarFling = FlingTab:MakeButton({
-Text = "Desligar Fling",
-Flags = "DesligarFling"
-})
-
--- Função para ligar o fling
-local function Ligar()
--- Pega o nome da pessoa que irá dar fling
-local nome = NomeFling:GetText()
-
--- Faça o jogador flingar
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 10
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = 20
+-- Função para tocar a música
+local function Tocar()
+-- Toca a música com o ID 7236490488
+game:GetService("SoundService"):LoadSound("rbxassetid://7236490488"):Play()
 end
 
--- Função para desligar o fling
-local function Desligar()
--- Desfaça o jogador flingar
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = 16
+-- Chama a função Tocar quando o botão for pressionado
+TocarMusica:Connect(Tocar)
+
+-- Cria o botão para parar a música
+local PararMusica = MusicaTab:MakeButton({
+Text = "Parar Música",
+Flags = "parar_musica",
+Style = "Rounded",
+Border = true,
+BorderSize = 10,
+BorderColor = Color3.new(1, 0, 0)
+})
+
+-- Função para parar a música
+local function Parar()
+-- Para a música
+game:GetService("SoundService"):GetService("MasterVolume"):Stop()
 end
 
--- Chama a função Ligar quando o botão for pressionado
-LigarFling:Connect(Ligar)
-
--- Chama a função Desligar quando o botão for pressionado
-DesligarFling:Connect(Desligar)
+-- Chama a função Parar quando o botão for pressionado
+PararMusica:Connect(Parar)
